@@ -6,6 +6,7 @@ hot_music_url = 'https://api.amemv.com/aweme/v1/hotsearch/music/billboard/'
 hot_trend_url = 'https://api.amemv.com/aweme/v1/category/list/'
 topic2video_url = 'https://api.amemv.com/aweme/v1/challenge/aweme/'
 music2video_url = 'https://api.amemv.com/aweme/v1/music/aweme/'
+music_collection_url = 'https://aweme.snssdk.com/aweme/v1/music/collection/'
 
 # http
 fetch_timeout = 5
