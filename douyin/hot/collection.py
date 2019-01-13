@@ -17,7 +17,8 @@ def collection(url=music_collection_url, **kwargs):
     # https://pastebin.com/G4s7Ca7i
     result = fetch(url, **kwargs)
     # process json data
-    dt = datetime.datetime.now()
+    # dt = datetime.datetime.now()
+    dt = parse_datetime(result.get('extra', {}).get('now'))
     collection_list = result.get('mc_list', [])
     collections = []
     count = result["cursor"]
