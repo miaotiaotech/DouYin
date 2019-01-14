@@ -15,3 +15,5 @@ class MusicFileHandler(FileHandler):
             obj = obj.music
             if isinstance(obj, Music):
                 return await self._process(obj, **kwargs)
+        elif isinstance(obj, Music):
+            return await self._process(obj, **kwargs)

@@ -3,6 +3,7 @@ from douyin.config import music_list_url, common_headers
 from douyin.utils.tranform import data_to_music, data_to_topic
 from douyin.structures.hot import HotTrend
 from douyin.utils.common import parse_datetime
+from douyin.structures import MusicList
 
 
 # define trend query params
@@ -12,7 +13,7 @@ query = {
 }
 
 
-def mclist(url=music_list_url, **kwargs):
+def mclist(url=music_list_url, mc_name="", **kwargs):
     """
     get trend result
     :return:
@@ -28,11 +29,12 @@ def mclist(url=music_list_url, **kwargs):
     mc_id = result["mc_info"]["mc_id"]
     for item in category_list:
         # process per category
-        item["create_time"] = dt
+        item["create_time"] = datetime
         item["owner_nickname"] = item["author"]
+        item["music_type"] = mc_name
         # mc = McList(**item)
         data = data_to_music(item)
         final.append(data)
     offset += count
-    return MusicList(datetime=dt, data=final, count=count,
+    return MusicList(datetime=datetime, data=final, count=count,
                      offset=offset, has_more=has_more, mc_id=mc_id)

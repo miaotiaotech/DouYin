@@ -1,6 +1,6 @@
 from douyin.structures import Base
 from douyin.utils.fetch import fetch
-from douyin.config import topic2video_url, common_headers
+from douyin.config import music_list_url, common_headers
 
 
 class Mclist(Base):
@@ -11,47 +11,41 @@ class Mclist(Base):
         :param kwargs:
         """
         super().__init__()
-        self.id = kwargs.get('id')
-        self.view_count = kwargs.get('view_count')
-        self.user_count = kwargs.get('user_count')
-        self.name = kwargs.get('name')
-        self.desc = kwargs.get('desc')
+        mc_info = kwargs.get('mc_info', {})
+        self.has_more = kwargs.get("has_more", 0)
+        self.cursor = kwargs.get("cursor", 30)
+        self.offset = kwargs.get("offset", 0)
+        self.id = mc_info.get("mc_id")
+        self.aweme_cover = mc_info.get('aweme_cover', {}).get("url_list")
+        self.cover = mc_info.get('cover', {}).get("url_list")
+        self.name = mc_info.get('name')
+        self.is_hot = mc_info.get('is_hot')
 
     def __repr__(self):
         """
         music to str
         :return:
         """
-        return '<Topic: <%s, %s>>' % (self.id, self.name)
+        return '<MusicList: <%s, %s>>' % (self.id, self.name)
 
-    def videos(self, max=None):
+    def musics(self, url=music_list_url, **kwargs):
         """
-        get videos of topic
+        get musics by class
         :return:
         """
-        from douyin.utils.tranform import data_to_video
-        if max and not isinstance(max, int):
-            raise RuntimeError('`max` param must be int')
-        query = {
-            'device_id': '58097798460',
-            'ch_id': self.id,
-            'count': '18',
-            'aid': '1129'
-        }
+        from douyin.utils.tranform import data_to_music
+        query = kwargs.get("params", {})
         offset, count = 0, 0
-        while True:
-            # define cursor
-            query['cursor'] = str(offset)
-            result = fetch(topic2video_url, params=query, headers=common_headers, verify=False)
-            aweme_list = result.get('aweme_list', [])
-            for item in aweme_list:
-                video = data_to_video(item)
-                count += 1
-                yield video
-                if max and count >= max:
-                    return
-            # next page
-            if result.get('has_more'):
-                offset += 18
-            else:
-                break
+        # define cursor
+        query['cursor'] = str(offset)
+        result = fetch(url, params=query, headers=common_headers, verify=False)
+        mlist = []
+        aweme_list = result.get('aweme_list', [])
+        for item in aweme_list:
+            item["music_type"] = self.name
+            music = data_to_music(item)
+            mlist.append(music)
+        # next page
+        if result.get('has_more'):
+            offset += 18
+        return mlist

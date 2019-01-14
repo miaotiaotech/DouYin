@@ -76,6 +76,7 @@ def data_to_music(data):
     play_url = get_music_url(data.get('play_url', {}).get('url_list', []))
     owner_id = data.get('owner_id')
     owner_name = data.get('owner_nickname')
+    music_type = data.get('music_type')
     cover_url = first(data.get('cover_large', {}).get('url_list', []))
     return Music(
         id=id,
@@ -83,7 +84,8 @@ def data_to_music(data):
         play_url=play_url,
         owner_id=owner_id,
         owner_name=owner_name,
-        cover_url=cover_url
+        cover_url=cover_url,
+        music_type=music_type
     ) if id else None
 
 

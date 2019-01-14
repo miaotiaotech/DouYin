@@ -18,6 +18,7 @@ class Music(Base):
         self.owner_id = kwargs.get('owner_id')
         self.owner_name = kwargs.get('owner_name')
         self.hot_count = kwargs.get('hot_count')
+        self.music_type = kwargs.get('music_type')
     
     def __repr__(self):
         """
