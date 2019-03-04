@@ -5,3 +5,4 @@ from douyin.hot.music import music
 from douyin.hot.trend import trend
 from douyin.hot.collection import collection
 from douyin.hot.mclist import mclist
+from douyin.hot.fascinating import fascinating
