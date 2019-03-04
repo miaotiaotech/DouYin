@@ -8,6 +8,8 @@ topic2video_url = 'https://api.amemv.com/aweme/v1/challenge/aweme/'
 music2video_url = 'https://api.amemv.com/aweme/v1/music/aweme/'
 music_collection_url = 'https://aweme.snssdk.com/aweme/v1/music/collection/'
 music_list_url = 'https://aweme.snssdk.com/aweme/v1/music/list/'
+fascinating_url = 'https://aweme.snssdk.com/aweme/v1/category/fascinating/list/'
+aweme_detail_url = 'https://aweme.snssdk.com/aweme/v1/multi/aweme/detail/' # ?aweme_ids=
 
 # http
 fetch_timeout = 5
