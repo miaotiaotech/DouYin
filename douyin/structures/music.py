@@ -19,6 +19,7 @@ class Music(Base):
         self.owner_name = kwargs.get('owner_name')
         self.hot_count = kwargs.get('hot_count')
         self.music_type = kwargs.get('music_type')
+        self.source = kwargs.get('source', "douyin")
     
     def __repr__(self):
         """
@@ -27,7 +28,7 @@ class Music(Base):
         """
         return '<Music: <%s, %s>>' % (self.id, self.name)
     
-    def videos(self, max=None):
+    def videos(self, url, max=None, **kwargs):
         """
         get videos of topic
         :return:
@@ -41,10 +42,11 @@ class Music(Base):
             'count': '18',
         }
         offset, count = 0, 0
+        query = kwargs.get("params", query)
         while True:
             # define cursor
             query['cursor'] = str(offset)
-            result = fetch(music2video_url, params=query, headers=common_headers, verify=False)
+            result = fetch(url, params=query, headers=kwargs.get("headers", common_headers), verify=False)
             aweme_list = result.get('aweme_list', [])
             for item in aweme_list:
                 video = data_to_video(item)
