@@ -32,7 +32,7 @@ class MongoHandler(Handler):
         collection = self.db[collection_name]
         # save to mongodb
         print('Saving', obj, 'to mongodb...')
-        if await collection.update_one({'id': obj.id}, {'$set': obj.json()}, upsert=True):
+        if await collection.update_one({'play_url': obj.play_url}, {'$set': obj.json()}, upsert=True):
             print('Saved', obj, 'to mongodb successfully')
         else:
             print('Error occurred while saving', obj)
