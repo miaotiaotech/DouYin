@@ -4,7 +4,7 @@ from douyin.structures import *
 
 
 class MongoHandler(Handler):
-    
+
     def __init__(self, conn_uri=None, db='douyin'):
         """
         init save folder
@@ -15,7 +15,7 @@ class MongoHandler(Handler):
             conn_uri = 'localhost'
         self.client = AsyncIOMotorClient(conn_uri)
         self.db = self.client[db]
-    
+
     async def process(self, obj, **kwargs):
         """
         download to file
@@ -24,15 +24,21 @@ class MongoHandler(Handler):
         :param kwargs:
         :return:
         """
+        query = {'id': obj.id}
         collection_name = 'default'
         if isinstance(obj, Video):
             collection_name = 'videos'
         elif isinstance(obj, Music):
             collection_name = 'musics'
+            query = {'play_url': obj.play_url}
+        if collection_name == "musics" and not obj.play_url:
+            print('Do not save %s into MongoDB for missing play url.'
+                    % collection_name)
+            return
         collection = self.db[collection_name]
         # save to mongodb
         print('Saving', obj, 'to mongodb...')
-        if await collection.update_one({'play_url': obj.play_url}, {'$set': obj.json()}, upsert=True):
+        if await collection.update_one(query, {'$set': obj.json()}, upsert=True):
             print('Saved', obj, 'to mongodb successfully')
         else:
             print('Error occurred while saving', obj)
