@@ -25,6 +25,7 @@ class Video(Base):
         self.ratio = kwargs.get('ratio')
         self.cover_url = kwargs.get('cover_url')
         self.address = kwargs.get('address')
+        self.source = kwargs.get('source', "douyin")
     
     def __repr__(self):
         """
