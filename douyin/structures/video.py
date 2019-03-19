@@ -1,6 +1,9 @@
 from douyin.structures import Base
 
 
+SCRAPY_SOURCE = {"douyin": 2, "quanmin": 3}
+
+
 class Video(Base):
     
     def __init__(self, **kwargs):
@@ -25,7 +28,7 @@ class Video(Base):
         self.ratio = kwargs.get('ratio')
         self.cover_url = kwargs.get('cover_url')
         self.address = kwargs.get('address')
-        self.source = kwargs.get('source', "douyin")
+        self.source = kwargs.get('source', SCRAPY_SOURCE["douyin"])
     
     def __repr__(self):
         """

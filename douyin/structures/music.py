@@ -3,6 +3,9 @@ from douyin.utils.fetch import fetch
 from douyin.config import music2video_url, common_headers
 
 
+SCRAPY_SOURCE = {"douyin": 2, "quanmin": 3}
+
+
 class Music(Base):
     
     def __init__(self, **kwargs):
@@ -19,7 +22,7 @@ class Music(Base):
         self.owner_name = kwargs.get('owner_name')
         self.hot_count = kwargs.get('hot_count')
         self.music_type = kwargs.get('music_type')
-        self.source = kwargs.get('source', "douyin")
+        self.source = kwargs.get('source', SCRAPY_SOURCE["douyin"])
     
     def __repr__(self):
         """
