@@ -19,6 +19,7 @@ class Music(Base):
         self.cover_url = kwargs.get('cover_url')
         self.play_url = kwargs.get('play_url')
         self.owner_id = kwargs.get('owner_id')
+        self.author_uk = kwargs.get('author_uk')
         self.owner_name = kwargs.get('owner_name')
         self.hot_count = kwargs.get('hot_count')
         self.music_type = kwargs.get('music_type')
