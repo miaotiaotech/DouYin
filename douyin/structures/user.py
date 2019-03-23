@@ -19,6 +19,7 @@ class User(Base):
         self.avatar = kwargs.get('avatar')
         self.verify = kwargs.get('verify')
         self.verify_info = kwargs.get('verify_info')
+        self.author_uk = kwargs.get('author_uk')
     
     def __repr__(self):
         """
