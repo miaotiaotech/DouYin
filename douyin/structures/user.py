@@ -1,6 +1,9 @@
 from douyin.structures import Base
 
 
+SCRAPY_SOURCE = {"douyin": 2, "quanmin": 3}
+
+
 class User(Base):
     
     def __init__(self, **kwargs):
@@ -20,6 +23,7 @@ class User(Base):
         self.verify = kwargs.get('verify')
         self.verify_info = kwargs.get('verify_info')
         self.author_uk = kwargs.get('author_uk')
+        self.source = kwargs.get('source', SCRAPY_SOURCE["douyin"])
     
     def __repr__(self):
         """
