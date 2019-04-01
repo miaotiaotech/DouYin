@@ -3,6 +3,9 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from douyin.structures import *
 
 
+SCRAPY_SOURCE = {"douyin": 2, "quanmin": 3}
+
+
 class MongoHandler(Handler):
 
     def __init__(self, conn_uri=None, db='douyin'):
@@ -30,11 +33,16 @@ class MongoHandler(Handler):
             collection_name = 'videos'
         elif isinstance(obj, Music):
             collection_name = 'musics'
-            query = {'play_url': obj.play_url}
         if collection_name == "musics" and not obj.play_url:
             print('Do not save %s into MongoDB for missing play url.'
                     % collection_name)
             return
+        if collection_name == "musics" and not obj.name:
+            print('Do not save %s into MongoDB for missing name.'
+                    % collection_name)
+            return
+        if collection_name == 'musics' and obj.source == SCRAPY_SOURCE["quanmin"]:
+            query = {'name': obj.name}
         collection = self.db[collection_name]
         # save to mongodb
         print('Saving', obj, 'to mongodb...')
