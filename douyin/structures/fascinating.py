@@ -54,8 +54,7 @@ class Fascinating(Base):
         # query['cursor'] = str(offset)
         result = fetch(url, params=query, headers=kwargs.get("headers", common_headers), verify=False)
         aweme_list = result.get("aweme_details", [])
-        if aweme_list:
-            item = aweme_list[0] if aweme_list else {}
+        item = aweme_list[0] if aweme_list else {}
         if not item:
             return
         v = data_to_video(item)
