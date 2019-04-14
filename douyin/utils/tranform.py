@@ -31,7 +31,7 @@ def data_to_video(data):
     :return:
     """
     statistics = data.get('statistics', {})
-    like_count = statistics.get('digg_count')
+    like_count = statistics.get('digg_count', 0)
     comment_count = statistics.get('comment_count')
     share_count = statistics.get('share_count')
     id = statistics.get('aweme_id')

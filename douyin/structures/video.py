@@ -16,7 +16,7 @@ class Video(Base):
         self.desc = kwargs.get('desc')
         self.author = kwargs.get('author')
         self.music = kwargs.get('music')
-        self.like_count = kwargs.get('like_count')
+        self.like_count = kwargs.get('like_count', 0)
         self.comment_count = kwargs.get('comment_count')
         self.share_count = kwargs.get('share_count')
         self.hot_count = kwargs.get('hot_count')
