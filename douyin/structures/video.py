@@ -29,6 +29,9 @@ class Video(Base):
         self.cover_url = kwargs.get('cover_url')
         self.address = kwargs.get('address')
         self.source = kwargs.get('source', SCRAPY_SOURCE["douyin"])
+        scenic = kwargs.get('scenic')
+        if scenic:
+            self.scenic = scenic
     
     def __repr__(self):
         """
@@ -36,6 +39,3 @@ class Video(Base):
         :return: str
         """
         return '<Video: <%s, %s>>' % (self.id, self.desc[:10].strip() if self.desc else None)
-    
-    
-    

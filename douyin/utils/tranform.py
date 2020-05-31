@@ -40,6 +40,7 @@ def data_to_video(data):
     duration = data.get('duration')
     create_time = parse_datetime(data.get('create_time'))
     share_url = data.get('share_url')
+    scenic = data.get('scenic')
     ratio = data.get('video', {}).get('ratio')
     cover_url = first(data.get('video', {}).get('origin_cover', {}).get('url_list'))
     play_url = get_video_url(data.get('video', {}).get('play_addr', {}).get('url_list'))
@@ -61,7 +62,8 @@ def data_to_video(data):
         play_url=play_url,
         author=author,
         music=music,
-        address=address
+        address=address,
+        scenic=scenic
     ) if id else None
 
 
